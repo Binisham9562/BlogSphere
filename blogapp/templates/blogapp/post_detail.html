@@ -1,0 +1,65 @@
+{% extends 'userapp/login.html' %}
+{% block content %}
+<div class="mainhead d-flex justify-content-between align-items-center">
+    <h4>BlogSphere</h4>
+    <div>
+        <a href="{% url 'create_post' %}" class="btn btn-light">Create</a>
+        <a href="{% url 'post_list' %}" class="btn btn-light">All Posts</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Log Out</a>
+    </div>
+</div>
+
+<body>
+
+    <div class="container" style="margin-top: 80px;">
+        <!-- Blog Post Section -->
+        <div class="post-header mb-4">
+            <h2 class="text-dark">{{ post.title }}</h2>
+        </div>
+
+        {% if post.image %}
+        <div class="text-center mb-4">
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid rounded" style="max-width: 600px; height: auto;">
+        </div>
+        {% endif %}
+
+        <!-- Post Content with Elegant Font Style -->
+        <div class="post-content mb-4" style="font-family: 'Georgia', serif; font-size: 1.1rem; line-height: 1.6;">
+            <p>{{ post.content }}</p>
+        </div>
+
+        <!-- Post Stats -->
+        <div class="post-stats mb-4 d-flex justify-content-around">
+            <p><strong>Comments:</strong> {{ post.comments.count }}</p>
+            <p><strong>Likes:</strong> {{ post.likes.count }}</p>
+            <p><strong>Dislikes:</strong> {{ post.dislikes.count }}</p>
+        </div>
+
+        <!-- Add Comment Section (Above Comments) -->
+        <div class="add-comment-section mb-5">
+            <h3 class="text-secondary">Add a Comment</h3>
+            <form method="POST" class="p-4" style="background-color: #f5f5f5; border-radius: 5px; border: 1px solid #ddd;">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit" class="btn btn-primary">Submit Comment</button>
+            </form>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="comments-section mb-5">
+            <h3 class="text-secondary">Comments</h3>
+            <hr>
+            {% if comments %}
+                {% for comment in comments %}
+                <div class="comment mb-3 p-3 rounded" style="background-color: #f9f9f9; border: 1px solid #ddd;">
+                    <p class="mb-1"><strong>{{ comment.user.first_name }}</strong>:</p>
+                    <p>{{ comment.content }}</p>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-muted">No comments yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+{% endblock %}

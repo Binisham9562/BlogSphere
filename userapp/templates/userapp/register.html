@@ -1,0 +1,26 @@
+{% extends 'userapp/login.html' %}
+{% block content%}
+<div class="mainhead"><h4>BlogSphere</h4>
+    <a href="{% url 'frontpage' %}" class="btn btn-light">Home</a> 
+   </div>
+   <div class="container mt-6">
+    <div class="row justify-content-center">
+        <div class="col-md-4 div1 position-fixed">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4>Register</h4>
+                </div>
+                    <div class="card-body custom-font-size">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}  <!-- Using form.as_p to render the form -->
+                            <button type="submit" class="btn btn-primary btn-block">Register</button>
+                         </form><br>
+    <a href="{% url 'login' %}" class="custom-font-size">Already have an account? Login here.</a>
+</div>   
+</div>
+</div>
+</div>
+</div>
+</div> 
+{%endblock%}

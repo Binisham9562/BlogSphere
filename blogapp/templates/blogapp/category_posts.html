@@ -1,0 +1,74 @@
+{% extends 'userapp/login.html' %}
+
+{% block content %}
+<!-- Main Header -->
+<div class="mainhead d-flex justify-content-between align-items-center" style="background-color:#003366; z-index: 1000; position: fixed; width: 100%; top: 0; left: 0; padding: 15px 30px;">
+    <h4 style="color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 24px; font-weight: bold;">BlogSphere</h4>
+    <div>
+        <a href="{% url 'create_post' %}" class="btn btn-light">Create Post</a>
+        <a href="{% url 'post_list' %}" class="btn btn-light">All Posts</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Log Out</a>
+    </div>
+</div>
+
+<!-- Main Content Area -->
+<div class="container-fluid" style="margin-top: 100px; padding-top: 20px; overflow-x: hidden;">
+    <div class="row">
+        <!-- Left Sidebar (Categories) -->
+        <div class="col-md-3" style="position: fixed; top: 100px; left: 0; height: calc(100vh - 100px); overflow-y: auto; border-right: 1px solid #ccc; padding-right: 10px;">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Categories</h5>
+                    <ul class="list-group">
+                        {% for category in categories %}
+                            <li class="list-group-item">
+                                <a href="{% url 'category_posts' category.id %}">{{ category.category_name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side for Posts -->
+        <div class="col-md-9" style="margin-left: 25%; margin-top: 0px; overflow-y: auto; height: calc(100vh - 120px);">
+            <!-- <h3 style="font-weight: bold; color: #003366;">Posts in "{{ category.category_name }}"</h3> -->
+            <div class="row">
+                {% if posts %}
+                    {% for post in posts %}
+                        <div class="col-md-6 mb-4">
+                            <div class="card shadow-lg border-light" style="border-radius: 10px; overflow: hidden; background-color: #f8f9fa;">
+                                {% if post.image %}
+                                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="card-img-top" style="height: 270px; object-fit: cover;">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title" style="font-size: 18px; font-weight: bold; color: #003366;">{{ post.title }}</h5>
+                                    <p class="card-text" style="font-size: 14px; color: #555;">{{ post.content|truncatewords:20 }}</p>
+                                    <a href="{% url 'post_detail' post.pk %}" class="btn btn-outline-primary btn-sm">Read More</a>
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <form action="{% url 'like_post' post.id %}#post-{{ post.id }}" method="POST" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-success btn-sm">👍 Like</button>
+                                        </form>
+                                        <form action="{% url 'dislike_post' post.id %}#post-{{ post.id }}" method="POST" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger btn-sm">👎 Dislike</button>
+                                        </form>
+                                    </div>
+                                    <div class="mt-2">
+                                        <p class="text-muted">Comments: {{ post.comments.count }} | Likes: {{ post.likes.count }} | Dislikes: {{ post.dislikes.count }}</p>
+                                        <small class="text-muted">Created at: {{ post.created_at }} | Author: {{ post.author.first_name }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h5>No posts found in this category.</h5>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

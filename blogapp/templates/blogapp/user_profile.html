@@ -1,0 +1,83 @@
+{% extends 'userapp/login.html' %}
+
+{% load static %}
+
+{% block content %}
+<!-- Main Header Section -->
+<div class="mainhead d-flex justify-content-between align-items-center" style="background-color: #003366; padding: 10px;">
+    <h4 class="text-white" style="font-size: 28px;">BlogSphere</h4>
+    <div>
+        <a href="{% url 'post_list' %}" class="btn btn-light">All Posts</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger" style="font-size: 16px; padding: 10px 20px;">Log Out</a>
+    </div>
+</div>
+
+<!-- Profile and Posts Section -->
+<div class="container mt-5 pt-5">
+    <div class="row">
+        <!-- Profile Section (Left Side) -->
+        <div class="col-md-4" style="position: fixed; top: 100px; left: 20px; width: 25%; z-index: 10;">
+            <div class="card shadow-lg mb-4">
+                <div class="card-body text-center">
+                    <!-- Profile Picture (round) -->
+                    {% if user_profile.profile_picture %}
+                        <img src="{{ user_profile.profile_picture.url }}" alt="{{ user_profile.user.get_full_name }}" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #003366;">
+                    {% else %}
+                        <img src="{% static 'default-profile.jpg' %}" alt="Default Profile" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #003366;">
+                    {% endif %}
+                    <h3 class="mt-3">{{ user_profile.user.get_full_name }}</h3>
+                    <p><strong>Email:</strong> {{ user_profile.user.email }}</p>
+                    <p><strong>Bio:</strong> <span>{{ user_profile.bio|safe }}</span></p>  <!-- Render bio with safe filter -->
+                    <p><strong>Total Posts:</strong> {{ user_posts.count }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- User's Posts Section (Right Side) -->
+        <div class="col-md-8" style="margin-left: 25%; max-height: 100vh; overflow-y: auto;">
+            <div class="card shadow-lg">
+                <div class="card-body">
+            
+                    <!-- Container for the posts arranged horizontally in pairs -->
+                    <div class="posts-container d-flex flex-wrap">
+                        {% for post in user_posts %}
+                            {% if forloop.counter|divisibleby:2 %}
+                                <div class="w-50 pr-2 mb-4">
+                            {% else %}
+                                <div class="w-50 pl-2 mb-4">
+                            {% endif %}
+                                <!-- Post Title and Image -->
+                                <div class="post-item mb-4" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background-color: #f9f9f9;">
+                                    <h5 style="font-weight: bold; color: #003366;">{{ post.title }}</h5>
+                                    {% if post.image %}
+                                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid mb-3" style="max-height: 200px; object-fit: cover; border-radius: 8px;">
+                                    {% endif %}
+                                    <p>{{ post.content|truncatewords:20 }}</p>
+                                    <p class="text-muted" style="font-size: 12px;">Created at: {{ post.created_at }}</p>
+
+                                    <!-- Post Stats: Likes, Dislikes, Comments -->
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <a href="{% url 'post_detail' post.pk %}" class="btn btn-outline-primary btn-sm">Read More</a>
+
+                                        <!-- Edit and Delete Buttons -->
+                                        <div class="mt-2">
+                                            <a href="{% url 'edit_post' post.category.id post.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                                            <form action="{% url 'delete_post' post.pk %}" method="POST" style="display:inline;">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <p>You have not created any posts yet.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

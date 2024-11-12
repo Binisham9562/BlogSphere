@@ -1,0 +1,41 @@
+{% extends 'userapp/login.html' %}
+
+{% block content %}
+<div class="container mt-5" style="margin-top: 90px;">
+    <h2>Search Results for "{{ query }}"</h2>
+    {% if posts %}
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-lg border-light">
+                        {% if post.image %}
+                            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 18px; font-weight: bold; color: #003366;">{{ post.title }}</h5>
+                            <p class="card-text" style="font-size: 14px; color: #555;">{{ post.content|truncatewords:20 }}</p>
+                            <a href="{% url 'post_detail' post.pk %}" class="btn btn-outline-primary btn-sm">Read More</a>
+                            <div class="d-flex justify-content-between mt-3">
+                                <form action="{% url 'like_post' post.id %}#post-{{ post.id }}" method="POST" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-success btn-sm">👍 Like</button>
+                                </form>
+                                <form action="{% url 'dislike_post' post.id %}#post-{{ post.id }}" method="POST" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm">👎 Dislike</button>
+                                </form>
+                            </div>
+                            <div class="mt-2">
+                                <p class="text-muted">Comments: {{ post.comments.count }} | Likes: {{ post.likes.count }} | Dislikes: {{ post.dislikes.count }}</p>
+                                <small class="text-muted">Created at: {{ post.created_at }} | Author: {{ post.author.first_name }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h5>No posts found for this search.</h5>
+    {% endif %}
+</div>
+{% endblock %}

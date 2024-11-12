@@ -1,0 +1,46 @@
+{% extends 'userapp/login.html' %}
+{% block content %}
+  <!-- Main Header Section -->
+  <div class="mainhead d-flex justify-content-between align-items-center" style="background-color: #003366; padding: 20px;">
+    <h4 class="text-white" style="font-size: 28px;">BlogSphere</h4>
+    <div>
+      <a href="{% url 'logout' %}" class="btn btn-danger" style="font-size: 16px; padding: 10px 20px;">Log Out</a>
+    </div>
+  </div>
+
+  <br><br>
+
+  <!-- Container for the Content -->
+  <div class="container mt-6">
+    <div class="row justify-content-center">
+      <!-- Form Container (Larger size, Centered) -->
+      <div class="col-md-6 div1 position-fixed">
+        <div class="card shadow-lg border-light" style="border-radius: 15px; width: 100%; max-width: 700px;">
+          <div class="card-header text-center" style="background-color: #f4f6f9; padding: 20px;">
+            <h5 style="font-size: 25px; font-weight: bold;">Create a New Post</h5>
+          </div>
+          <div class="card-body" style="background-color: #ffffff; padding: 40px;">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              
+              <!-- Custom Form Layout using form.as_p -->
+              {{ form.as_p }}
+
+              <!-- Submit Button Section -->
+              <div class="d-flex justify-content-between mt-4">
+                <button type="submit" class="btn btn-primary" style="font-size: 15px; padding: 5px 10px; width: 150px;">Create Post</button>
+                <a href="{% url 'post_list' %}" class="btn btn-light" style="font-size: 15px; padding: 5px 10px; width: 150px;">Back to Posts</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content (Scrolling Section) -->
+      <div class="col-md-8 offset-md-4">
+        <!-- You can add more content here if needed -->
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

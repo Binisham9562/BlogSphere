@@ -1,0 +1,36 @@
+
+{% extends 'userapp/login.html' %}
+
+{% block content %}
+<!-- Main Head -->
+<div class="mainhead d-flex justify-content-between align-items-center" style="height: 60px; padding: 15px; background-color: #003366;">
+    <h4 style="color: white;">BlogSphere</h4>
+    <div>
+        <a href="{% url 'post_list' %}" class="btn btn-light">All Posts</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Log Out</a>
+    </div>
+</div>
+
+<!-- Fixed Edit Post Container -->
+<div class="container mt-5 pt-4" style="position: fixed; top: 80px; left: 50%; transform: translateX(-50%); max-width: 600px; width: 100%; background-color: #f8f9fa; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); z-index: 1000;">
+    <h1 class="mb-4" style="font-size: 28px; color: #003366;">Edit Post: <strong>{{ form.instance.title }}</strong></h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Form Fields with Custom Styling -->
+        <div class="mb-4">
+            {{ form.as_p }}
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary btn-sm" style="width: 150px;">Update Post</button>
+    </form>
+
+    <!-- Back to Post List (Smaller Size) -->
+    <div class="mt-4 text-center">
+        <a href="{% url 'post_list' %}" class="btn btn-light btn-sm" style="width: 150px;">Back to All Posts</a>
+    </div>
+  </div>
+
+{% endblock %}
