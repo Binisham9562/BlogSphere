@@ -8,27 +8,24 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <style>
-        /* Basic reset for body and html */
         body, html {
             height: 100%;
             margin: 0;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
+            overflow-x: hidden;
             font-family: 'Helvetica Neue', Arial, sans-serif;
             box-sizing: border-box;
-        }
+        } 
 
         * {
             box-sizing: inherit;
         }
 
-        /* Main header styles */
         .mainhead {
-            background-color: #00246B;
+            background: linear-gradient(135deg, #03003d, #ed46d7); 
             color: white;
             text-align: start;
             font-size: 18px;
-            font-style: italic;
-            padding: 15px 20px;
+            padding: 5px 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -60,77 +57,72 @@
         }
 
         .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(20, 30, 168, 0.1);
         }
 
-        /* Main background image section */
-        .bg-image {
-            background-size: cover;
-            background-position: center;
+        /* Stylish Image Section */
+        .stylish-image-section {
+            position: relative;
             height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: -1;
-        }
-
-        /* Padding adjustment for content below the fixed header */
-        .content {
-            padding-top: 90px;
-            width: 100%;
-        }
-
-        /* Welcome Section */
-        .welcome-section {
-            background-image: url('{% static "image4.jpg" %}');
+            background-image: url('{% static "background1.jpg" %}');
             background-size: cover;
             background-position: center;
-            color: white;
-            padding: 150px 30px;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
             box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
-        .welcome-heading {
-            font-size: 50px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-        }
-
-        .welcome-section p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        /* About Section */
-        .section.about {
-            padding: 80px 20px;
-            background-color: #f7f7f7;
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(4, 0, 34, 0.5); /* Transparent overlay */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            color: white;
+            padding: 0 20px;
         }
 
-        .section h2 {
-            font-size: 36px;
+        .image-heading {
+            font-size: 64px;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin: 0;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.7);
+            letter-spacing: 2px;
         }
 
-        .section p {
+        .image-subheading {
+            font-size: 20px;
+            margin: 20px 0;
+            font-weight: 300;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-light {
+            background-color: #ff6f61;
+            color: white;
             font-size: 18px;
-            line-height: 1.8;
-            max-width: 900px;
-            margin: 0 auto;
-            color: #555;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
         }
 
-        /* Features Section */
+        .btn-light:hover {
+            background-color: #ff5a4d;
+        }
+
         .features-section {
             padding: 60px 20px;
-            background-color: #E1E5F8;
+            background-color:rgb(3, 3, 105);
             text-align: center;
         }
 
@@ -158,19 +150,6 @@
             text-align: center;
         }
 
-        .feature-card h5 {
-            font-size: 22px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .feature-card p {
-            font-size: 16px;
-            color: #666;
-            line-height: 1.5;
-        }
-
         .feature-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
@@ -178,57 +157,23 @@
 
         @media (max-width: 768px) {
             .feature-card {
-                width: 100%; /* Full width on smaller screens */
-                margin-bottom: 20px; /* Add spacing between rows */
+                width: 100%;
+                margin-bottom: 20px;
             }
 
             .features-row {
                 flex-direction: column;
                 align-items: center;
             }
+            h2 {
+            font-size: 24px; /* Smaller title for compact view */
         }
 
-        /* Call to Action Section */
-        .call-to-action {
-            background-color: #00246B;
-            color: white;
-            padding: 50px 20px;
-            text-align: center;
+        p {
+            font-size: 14px; /* Adjust text size for readability */
         }
-
-        .call-to-action h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        .call-to-action p {
-            font-size: 18px;
-            margin-bottom: 30px;
-            color: #dcdcdc;
-        }
-
-        .btn-light {
-            background-color: #ff6f61;
-            color: white;
-            font-size: 18px;
-            padding: 15px 30px;
-            border-radius: 30px;
-            text-transform: uppercase;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-light:hover {
-            background-color: #ff5a4d;
-        }
-        .custom-image {
-    max-width: 60%; /* Adjust this value as needed */
-    height: auto; /* Maintain aspect ratio */
-    display: block; /* Prevents inline-block issues */
-    margin: 0 auto; /* Centers the image */
-
-}
-
-
+    }
+        
     </style>
 </head>
 <body>
@@ -241,60 +186,119 @@
             <a class="nav-link" href="#">About</a>
         </div>
     </div>
-    
-    <!-- Background image section -->
-    <div class="bg-image"></div>
 
-    <!-- Content section -->
-    <div class="content container">
-        <!-- Welcome Section -->
-        <div class="welcome-section">
-            <h1 class="welcome-heading">Welcome to BlogSphere</h1>
-            <p>Discover a vibrant community where you can share your thoughts, connect with others, and explore a wide range of topics.</p>
+    <!-- Stylish Image Section -->
+    <!-- <div class="stylish-image-section">
+        <div class="image-overlay">
+            <h1 class="image-heading">Welcome to BlogSphere</h1>
+            <p class="image-subheading">A community where creativity meets connection</p>
+            <a href="{% url 'register' %}" class="btn btn-light">Join Now</a>
         </div>
-
-        <!-- About Section -->
-        <div class="section about">
-            <h2>About BlogSphere</h2>
-            <p>BlogSphere is your platform to share and discover thoughts and stories from around the world. Join our community of passionate writers and readers!</p>
-        </div>
-
-        <!-- Features Section -->
-        <div class="features-section">
-            <h2>Features of BlogSphere</h2>
-            
-            <!-- First Row of Features -->
-            <div class="features-row">
-                <div class="feature-card">
-                    <h5>User-Friendly Interface</h5>
-                    <p>Enjoy a clean and intuitive interface that makes it easy to navigate and find what you love.</p>
-                </div>
-                <div class="feature-card">
-                    <h5>Engaging Community</h5>
-                    <p>Connect with other writers and readers, share insights, and get feedback on your posts.</p>
-                </div>
-            </div>
-    
-            <!-- Second Row of Features -->
-            <div class="features-row">
-                <div class="feature-card">
-                    <h5>Dynamic Categories</h5>
-                    <p>Explore a variety of categories and find content that interests you.</p>
-                </div>
-                <div class="feature-card">
-                    <h5>Personalized Recommendations</h5>
-                    <p>Get content suggestions based on your interests and reading history to make discovering new posts easier.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Call to Action Section -->
-        <div class="section call-to-action">
-            <h2>Join Us Today!</h2>
-            <p>Create an account and start sharing your thoughts with the world.</p>
-            <a href="{% url 'register' %}" class="btn btn-light">Get Started</a>
+    </div> -->
+    <div class="stylish-image-section">
+        <div class="image-overlay" style="background: rgba(0, 0, 0, 0.5); color: white; text-align: center; padding: 50px;">
+            <h1 class="image-heading" style="font-size: 3em; font-weight: bold;">Welcome to BlogSphere</h1>
+            <p class="image-subheading" style="font-size: 1.5em; margin-bottom: 30px;">A community where creativity meets connection</p>
+            <p class="image-description" style="font-size: 1.2em; margin-bottom: 40px; line-height: 1.6;">
+                Discover, share, and connect with like-minded individuals. 
+                Start your creative journey today and be a part of a vibrant community that celebrates your passion and ideas.
+            </p>
+            <a href="{% url 'register' %}" class="btn btn-light" style="padding: 15px 30px; font-size: 1.1em; border-radius: 25px; text-transform: uppercase;">
+                Join Now
+            </a>
         </div>
     </div>
+    
+
+    <!-- Features Section -->
+    <div class="features-section" style="background-color:linear-gradient(135deg, #03003d, #ed46d7);">
+        <h2 style="color: white;">Features of BlogSphere</h2>
+
+        <!-- First Row of Features -->
+        <div class="features-row">
+            <div class="feature-card">
+                <h5>User-Friendly Interface</h5>
+                <p>Enjoy a clean and intuitive interface that makes it easy to navigate and find what you love.</p>
+            </div>
+            <div class="feature-card" style="background-color: bisque;">
+                <h5>Engaging Community</h5>
+                <p>Connect with other writers and readers, share insights, and get feedback on your posts.</p>
+            </div>
+        </div>
+
+        <!-- Second Row of Features -->
+        <div class="features-row">
+            <div class="feature-card" style="background-color: rgb(184, 195, 237);">
+                <h5>Dynamic Categories</h5>
+                <p>Explore a variety of categories and find content that interests you.</p>
+            </div>
+            <div class="feature-card" style="background-color: rgb(200, 245, 237);">
+                <h5>Personalized Recommendations</h5>
+                <p>Get content suggestions based on your interests and reading history to make discovering new posts easier.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <div class="features-section" style="background-color:white; padding: 60px 20px;">
+        <h2 style="color: #00246B; font-size: 36px; text-align: center; margin-bottom: 50px;">What Our Users Say</h2>
+        <div class="features-row" style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+            <!-- Testimonial 1 -->
+            <div class="feature-card" style="background-color: #fffbf0; width: 45%; padding: 30px; border-radius: 15px; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); text-align: center;">
+                <h5 style="color: #00246B; font-size: 24px; margin-bottom: 15px;">Jane Doe</h5>
+                <p style="color: #545d68; font-size: 18px;">"BlogSphere has transformed the way I connect with readers. It's simple, intuitive, and engaging!"</p>
+            </div>
+    
+            <!-- Testimonial 2 -->
+            <div class="feature-card" style="background-color: #f5f0ff; width: 45%; padding: 30px; border-radius: 15px; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); text-align: center;">
+                <h5 style="color: #00246B; font-size: 24px; margin-bottom: 15px;">John Smith</h5>
+                <p style="color: #545d68; font-size: 18px;">"The personalized recommendations are amazing. I always find articles that resonate with my interests."</p>
+            </div>
+        </div>
+    </div>
+       
+    
+
+<!-- Latest Blogs Section -->
+<!-- Enhanced Latest Blogs Section -->
+<div class="features-section" style="background-color: #f8f9fa; padding: 80px 20px;">
+    <h2 style="color: #00246B; font-size: 36px; margin-bottom: 40px;">Latest Blog Posts</h2>
+    <div class="features-row">
+        <!-- Blog Post 1 -->
+        <div class="feature-card" style="background-color: #ffffff; text-align: left; padding: 20px; position: relative;">
+            <img src="{% static 'rose.jpg' %}" alt="Blog Post 1" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+            <h5 style="margin-top: 20px; color: #00246B; font-size: 20px;">The Timeless beuty of Roses</h5>
+            <p style="color: #545d68; font-size: 16px;">Any event or occasion takes on an atmosphere of romance when roses are around. Roses are also some of the...</p>
+            <a href="login" class="btn btn-light" style="position: absolute; bottom: 10px; left: 20px; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; font-size: 12px; background-color:#4233e6; color: white; text-decoration: none;">Read More</a>
+        </div>
+
+        <!-- Blog Post 2 -->
+        <div class="feature-card" style="background-color: #ffffff; text-align: left; padding: 20px; position: relative;">
+            <img src="{% static 'travel3.jpg' %}" alt="Blog Post 2" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+            <h5 style="margin-top: 20px; color: #00246B; font-size: 20px;">Gulmarg</h5>
+            <p style="color: #545d68; font-size: 16px;">Gulmarg, the "Meadow of Flowers" in Jammu and Kashmir, is a stunning blend of lush meadows and snow-capped...</p>
+            <a href="login" class="btn btn-light" style="position: absolute; bottom: 10px; left: 20px; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; font-size: 12px; background-color: #4233e6; color: white; text-decoration: none;">Read More</a>
+        </div>
+    </div>
+</div>
+
+<!-- Call-to-Action Section -->
+<!-- <div class="features-section" style="background-color: #00246B; color: white;">
+    <h2>Start Your Blogging Journey Today!</h2>
+    <p>Whether you're a seasoned writer or just starting out, BlogSphere is your ultimate blogging platform.</p>
+    <a href="{% url 'register' %}" class="btn btn-light">Get Started</a>
+</div> -->
+<!-- Contact Section -->
+<!-- Social Media Section -->
+<div class="features-section" style="background-color: #0c0258; color: white;">
+    <h2 style="color: white;">Follow Us</h2>
+    <p>Stay updated with the latest news and updates from BlogSphere.</p>
+    <div>
+        <a href="#" class="btn btn-light">Facebook</a>
+        <a href="#" class="btn btn-light">Twitter</a>
+        <a href="#" class="btn btn-light">Instagram</a>
+    </div>
+</div>
 
 </body>
 </html>

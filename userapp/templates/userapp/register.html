@@ -1,26 +1,83 @@
 {% extends 'userapp/login.html' %}
-{% block content%}
-<div class="mainhead"><h4>BlogSphere</h4>
+
+{% block content %}
+<div class="mainhead">
+    <h4>BlogSphere</h4>
     <a href="{% url 'frontpage' %}" class="btn btn-light">Home</a> 
-   </div>
-   <div class="container mt-6">
+</div>
+
+<div class="container mt-6">
     <div class="row justify-content-center">
         <div class="col-md-4 div1 position-fixed">
             <div class="card">
                 <div class="card-header text-center">
                     <h4>Register</h4>
                 </div>
-                    <div class="card-body custom-font-size">
-                        <form method="post">
-                            {% csrf_token %}
-                            {{ form.as_p }}  <!-- Using form.as_p to render the form -->
-                            <button type="submit" class="btn btn-primary btn-block">Register</button>
-                         </form><br>
-    <a href="{% url 'login' %}" class="custom-font-size">Already have an account? Login here.</a>
-</div>   
+                <div class="card-body custom-font-size">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <!-- Custom Username Field -->
+                        <div class="form-group">
+                            <label for="{{ form.username.id_for_label }}">Username</label>
+                            {{ form.username }}
+                            {% if form.username.help_text %}
+                                <small class="form-text text-muted">{{ form.username.help_text }}</small>
+                            {% endif %}
+                        </div>
+
+                        <!-- Custom First Name Field -->
+                        <div class="form-group">
+                            <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                            {{ form.first_name }}
+                            {% if form.first_name.help_text %}
+                                <small class="form-text text-muted">{{ form.first_name.help_text }}</small>
+                            {% endif %}
+                        </div>
+
+                        <!-- Custom Last Name Field -->
+                        <div class="form-group">
+                            <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                            {{ form.last_name }}
+                            {% if form.last_name.help_text %}
+                                <small class="form-text text-muted">{{ form.last_name.help_text }}</small>
+                            {% endif %}
+                        </div>
+
+                        <!-- Custom Email Field -->
+                        <div class="form-group">
+                            <label for="{{ form.email.id_for_label }}">Email Address</label>
+                            {{ form.email }}
+                            {% if form.email.help_text %}
+                                <small class="form-text text-muted">{{ form.email.help_text }}</small>
+                            {% endif %}
+                        </div>
+
+                        <!-- Custom Password Field (No help text or extra details) -->
+                        <div class="form-group">
+                            <label for="{{ form.password1.id_for_label }}">Password</label>
+                            {{ form.password1 }}
+                            {% if form.password1.help_text %}
+                                <small class="form-text text-muted">{{ form.password1.help_text }}</small>
+                            {% endif %}
+                        </div>
+
+                        <!-- Custom Confirm Password Field (No help text or extra details) -->
+                        <div class="form-group">
+                            <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                            {{ form.password2 }}
+                            {% if form.password2.help_text %}
+                                <small class="form-text text-muted">{{ form.password2.help_text }}</small>
+                            {% endif %}
+                        </div>
+
+                        <button type="submit" class="btn btn-block" style="background-color: #2047d1;">Register</button>
+                    </form>
+                    <br>
+                    <a href="{% url 'login' %}" class="custom-font-size" style="color: #2707c8;">Already have an account? Login here.</a>
+                </div>   
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-</div>
-</div> 
-{%endblock%}
+{% endblock %}

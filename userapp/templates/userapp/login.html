@@ -9,7 +9,7 @@
 <style>
 
 .mainhead {
-    background: linear-gradient(135deg, #003366, #0044CC); /* Gradient background */
+    background: linear-gradient(135deg,rgb(3, 3, 67),rgb(215, 56, 221)); /* Gradient background */
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 20px;
@@ -23,6 +23,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+body{
+    background-color:rgb(255, 255, 255);
 }
 
 .mainhead h4 {
@@ -38,7 +41,7 @@
 }
 
 .mainhead .btn:hover {
-    background-color: #0044CC;
+    background-color:#4e36eb;
     color: #fff;
 }
 
@@ -112,9 +115,9 @@
                         <form method="post">
                             {% csrf_token %}
                             {{ form.as_p }}
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            <button type="submit" class="btn  btn-block" style="background-color: #1e54e8;">Login</button>
                         </form>
-                        <br><br><a href="{% url 'password_reset' %}">Forgot password</a>
+                        <!-- <br><br><a href="{% url 'password_reset' %}" style="color: #513a26;">Forgot password</a> -->
                     </div>
                 </div>
             </div>

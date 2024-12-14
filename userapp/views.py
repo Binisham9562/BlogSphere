@@ -93,4 +93,3 @@ class CustomPasswordResetDoneView(PasswordResetDoneView):
 @login_required
 def protected_view(request):
     return render(request, 'userapp/protected.html')
-

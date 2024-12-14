@@ -2,7 +2,7 @@
 
 {% block content %}
 <!-- Messages display with auto-dismiss -->
-<div class="container mt-5" style="margin-top: 90px;">
+<div class="container mt-5" style="margin-top: 150px;">
     {% if messages %}
         <div class="row">
             <div class="col-12">
@@ -42,7 +42,7 @@
                     <ul class="list-group">
                         {% for category in categories %}
                             <li class="list-group-item">
-                                <a href="{% url 'category_posts' category.id %}">{{ category.category_name }}</a>
+                                <a href="{% url 'category_posts' category.id %}" style="color: rgb(26, 15, 172);">{{ category.category_name }}</a>
                             </li>
                         {% endfor %}
                     </ul>
